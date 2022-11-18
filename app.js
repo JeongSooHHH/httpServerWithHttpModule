@@ -1,3 +1,4 @@
+// 3번 과제
 // 회원가입 엔드포인트 , users 정보를 배열, 즉 API 서버의 메모리에 저장되어 있어 재부팅하면 모든 정보가 사라짐. 이에 DB가 필요함. 데이터 영구저장을 위해
 // 1.유저 회원 가입하기, 2.게시글 등록하기, 3.게시글 목록 조회하기, 4.게시글 수정하기, 5.게시글 삭제하기, 6.유저와 게시글 조회하기
 const http = require('http') //(1) nodejs의 http 모듈 호출
@@ -15,7 +16,7 @@ const users=[ //(2) 새롭게 회원가입 하는 사용자 정보를 저장할 
         name: "Fabian Predovic",
         email: "Connell29@gmail.com",
         password: "password",
-      },3
+      },
     ]
 
     const posts =[
@@ -32,10 +33,9 @@ const users=[ //(2) 새롭게 회원가입 하는 사용자 정보를 저장할 
             userId: 1,
           },
     ]
-    const postGet = {  // 키값을 post
-      
-
-    }
+    
+    // const postGet = user[0] {   // for문을 이용하여 users와 posts를 postGet에 변수 지정해서 넣어주고 하단에 postGET만 당기면 될듯
+    // }
     /*	{
 	    "userID"           : 1,
 	    "userName"         : "Rebekah Johnson",
@@ -43,7 +43,24 @@ const users=[ //(2) 새롭게 회원가입 하는 사용자 정보를 저장할 
       "postingTitle"     : "간단한 HTTP API 개발 시작!",
 	    "postingContent"   : "Node.js에 내장되어 있는 http 모듈을 사용해서 HTTP server를 구현."
 	},*/   
-     
+    // const data = function(){  //JSON 형태
+    //     let dataArray = [];
+    //     for(let i = 0; i<posts.length; i++){
+    //         for(let j = 0; j<users.length; j++){
+    //             if (users[j].id === posts[i].userId){
+    //                 let userPost = {
+    //                     "userID"           : users[j].id,
+    //                     "userName"         : users[j].name,
+    //                     "postingId"        : posts[i].id,
+    //                     "postingTitle"     : posts[i].title,
+    //                     "postingContent"   : posts[i].content 
+    //                 }
+    //                 dataArray.push(userPost);
+    //             }
+    //         }
+    //     }
+    //     return dataArray;
+    // }
 
     const httpRequestListener = function (request, response){
         const {url, method} = request
@@ -67,7 +84,7 @@ const users=[ //(2) 새롭게 회원가입 하는 사용자 정보를 저장할 
                             password: user.password
                         })
                         response.writeHead(200, {'Content-Type':'application/json'}) // json 객체 타입으로 저장함.
-                        response.end(JSON.stringify({ 'data' :users}))     //(9) 마지막으로 회원가입이 성공적으로 끝났음을 응답
+                        response.end(JSON.stringify({ 'data' :data()}))     //(9) 마지막으로 회원가입이 성공적으로 끝났음을 응답
                     })
                 }
 
@@ -89,7 +106,7 @@ const users=[ //(2) 새롭게 회원가입 하는 사용자 정보를 저장할 
                       userId: post.userId                      
                     })
                     response.writeHead(200, {'Content-Type':'application/json'}) 
-                    response.end(JSON.stringify({'message' : "postCreate"}))     
+                    response.end(JSON.stringify({'data' : posts}))     
                 })
             }}
             
