@@ -32,7 +32,10 @@ const users=[ //(2) 새롭게 회원가입 하는 사용자 정보를 저장할 
             userId: 1,
           },
     ]
+    // const postGet = {  // 키값을 post
+      
 
+    // }
     /*	{
 	    "userID"           : 1,
 	    "userName"         : "Rebekah Johnson",
@@ -64,11 +67,41 @@ const users=[ //(2) 새롭게 회원가입 하는 사용자 정보를 저장할 
                             password: user.password
                         })
                         response.writeHead(200, {'Content-Type':'application/json'}) // json 객체 타입으로 저장함.
-                        response.end(JSON.stringify({ message :"userCreated"}))     //(9) 마지막으로 회원가입이 성공적으로 끝났음을 응답
+                        response.end(JSON.stringify({ 'data' :users}))     //(9) 마지막으로 회원가입이 성공적으로 끝났음을 응답
                     })
                 }
-              }}
+
                 /* ================▲ 유저 회원가입    ▼ 게시글 등록하기=================*/
+                if(url==='/users/post'){ 
+                  let body =''; 
+                    
+                request.on('data', (data) => {
+                    body+= data; 
+                }) 
+                
+                request.on('end', () =>{   
+                    const post = JSON.parse(body);   
+
+                    posts.push({    
+                      id: post.id,
+                      title: post.title,
+                      description: post.description,
+                      userId: post.userId                      
+                    })
+                    response.writeHead(200, {'Content-Type':'application/json'}) 
+                    response.end(JSON.stringify({ 'data' : posts}))     
+                })
+            }}
+            
+    // ===============▼ 게시글 목록 조회하기 pingpong 과 같은 방식으로 post 불러오면 되지 않을까(호출부분만!) GET으로/*
+    //         if(method==='GET'){
+    //           if(url ==='/users/post'){
+    //             response.writeHead(200, {'Content-Type' : 'application/json'})
+    //             response.end(JSON.stringify({'data': posts}))            
+    //         }
+    //     }
+    //   }
+
 
 
     // ==================
@@ -76,4 +109,4 @@ const users=[ //(2) 새롭게 회원가입 하는 사용자 정보를 저장할 
 
     server.listen(8000, '127.0.0.1', function(){
         console.log('Listening to requests on port 8000')
-    })
+    })}
